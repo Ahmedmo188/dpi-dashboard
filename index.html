@@ -1,0 +1,141 @@
+<!--
+Mini Admin Dashboard
+Single-file prototype (index.html)
+
+How to use:
+1. Save this file as `index.html` and open it in a browser (Chrome/Edge recommended).
+2. The app uses CDN libraries (jQuery, DataTables, Toastr, Animate.css). No server required.
+3. To push to GitHub: create a new repo, add this file + a README.md (example README text is below), commit & push.
+
+README (example to put on repo):
+# Mini Admin Dashboard
+Frontend-only dashboard using HTML/CSS/JS/jQuery.
+
+Libraries used (CDNs):
+- jQuery
+- DataTables
+- Toastr
+- Animate.css
+
+APIs (JSONPlaceholder):
+- Users: https://jsonplaceholder.typicode.com/users
+- Posts: https://jsonplaceholder.typicode.com/posts
+- Comments: https://jsonplaceholder.typicode.com/comments?postId={id}
+
+Features:
+- Dashboard stats (Users / Posts / Comments count)
+- Users table (DataTables) with view / edit / delete and ⭐ favorite persisted in localStorage
+- Posts page with live search, add / edit / delete locally (doesn't change remote server), view comments per post
+- Toastr notifications for operations
+- Loader and Light/Dark mode
+
+---
+
+NOTE: This single-file is a prototype suitable for demo and portfolio. For production split files and add build tooling.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini Admin Dashboard</title>
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-b7f4X+S5KqS3Q6z3Kj0x4m3ZjQ0h1x6zZ1W8x6Qk1x6vZ6b2o1+W9v3Z6w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+  <!-- Toastr CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+  <link rel="stylesheet" href="css\style.css" />
+
+
+  
+</head>
+<body>
+
+<div id="loader"><div class="animate__animated animate__pulse">Loading...</div></div>
+
+<div class="app" id="app" data-theme="light">
+  <aside class="sidebar">
+    <div class="logo">Mini Admin</div>
+    <ul class="side-nav">
+      <li><a href="#dashboard" class="nav-link" data-target="dashboard">Dashboard</a></li>
+      <li><a href="#users" class="nav-link" data-target="users">Users</a></li>
+      <li><a href="#posts" class="nav-link" data-target="posts">Posts</a></li>
+    </ul>
+    <div style="margin-top:18px">
+      <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="themeToggle"> Dark Mode</label>
+    </div>
+    <footer>Built with HTML, jQuery, DataTables, Toastr</footer>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div><strong id="pageTitle">Dashboard</strong></div>
+      <div class="toolbar">
+        <input id="globalSearch" placeholder="Search..." style="padding:6px;border-radius:6px;border:1px solid #ddd" />
+      </div>
+    </div>
+
+    <div id="viewArea">
+      <!-- Dashboard -->
+      <section id="dashboardView" class="view">
+        <div class="cards">
+          <div class="card"><h3 id="statUsers">--</h3><p>Users</p></div>
+          <div class="card"><h3 id="statPosts">--</h3><p>Posts</p></div>
+          <div class="card"><h3 id="statComments">--</h3><p>Comments</p></div>
+        </div>
+        <div class="content">
+          <h4>Welcome</h4>
+          <p>Use the left menu to open Users or Posts. This demo uses <em>JSONPlaceholder</em> as the API and stores favorites + local post changes in LocalStorage.</p>
+        </div>
+      </section>
+
+      <!-- Users -->
+      <section id="usersView" class="view" style="display:none">
+        <div class="content">
+          <h4>Users</h4>
+          <table id="usersTable" class="display" style="width:100%">
+            <thead><tr><th>Fav</th><th>ID</th><th>Name</th><th>Username</th><th>Email</th><th>Actions</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Posts -->
+      <section id="postsView" class="view" style="display:none">
+        <div class="content">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <h4>Posts</h4>
+            <div>
+              <input id="postSearch" placeholder="Live search posts..." style="padding:6px;border-radius:6px;border:1px solid #ddd" />
+              <button id="btnNewPost" style="padding:6px 10px;margin-left:8px;border-radius:6px">New Post</button>
+            </div>
+          </div>
+
+          <div id="postsList"></div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+
+<!-- Modal backdrop -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<!-- Libraries -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="js/script.js"></script>
+
+
+
+
+</body>
+</html>

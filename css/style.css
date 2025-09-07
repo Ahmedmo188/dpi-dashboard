@@ -1,0 +1,49 @@
+:root{
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #b16e6e;
+      --muted: #666;
+      --accent: #2b8cff;
+    }
+    [data-theme="dark"]{
+      --bg: #07415d;
+      --card: #091a38;
+      --text: #e6eef8;
+      --muted: #9fb1c9;
+      --accent: #3aa0ff;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    .app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+    .sidebar{background:var(--card);padding:18px;border-right:1px solid rgba(0,0,0,0.04)}
+    .logo{font-weight:700;margin-bottom:12px}
+    .side-nav{list-style:none;padding:0;margin:0}
+    .side-nav li{margin:8px 0}
+    .side-nav a{display:block;padding:8px;border-radius:8px;color:var(--text);text-decoration:none}
+    .side-nav a.active, .side-nav a:hover{background:linear-gradient(90deg, rgba(43,140,255,0.12), transparent)}
+
+    .main{padding:20px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .cards{display:flex;gap:12px;margin-bottom:16px}
+    .card{background:var(--card);padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.03);min-width:150px}
+    .card h3{margin:0;font-size:20px}
+    .card p{margin:6px 0 0;color:var(--muted)}
+
+    .content{background:var(--card);padding:16px;border-radius:10px;min-height:60vh}
+    .toolbar{display:flex;gap:8px;align-items:center}
+
+    /* simple modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center}
+    .modal{background:var(--card);padding:18px;border-radius:10px;min-width:320px}
+
+    /* loader */
+    #loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.6);z-index:9999}
+    [data-theme="dark"] #loader{background:rgba(0,0,0,0.6)}
+
+    /* posts list */
+    .post-card{border:1px dashed rgba(0,0,0,0.06);padding:12px;border-radius:8px;margin-bottom:10px}
+
+    .fav{cursor:pointer;float:right;font-size:18px}
+
+    footer{margin-top:12px;color:var(--muted);font-size:13px}
+
+    @media (max-width:800px){.app{grid-template-columns:1fr} .sidebar{display:none}}
